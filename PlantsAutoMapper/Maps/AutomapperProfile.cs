@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PlantsAutoMapper.Models;
 
 namespace PlantsAutoMapper.Maps
 {

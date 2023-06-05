@@ -1,4 +1,4 @@
-﻿namespace PlantsAutoMapper
+﻿namespace PlantsAutoMapper.Models
 {
     public class PlantDto
     {

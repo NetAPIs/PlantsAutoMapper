@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlantsAutoMapper.Data;
+using PlantsAutoMapper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<PlantService, PlantService>();
 
 var app = builder.Build();
 

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantsAutoMapper.Data;
 using PlantsAutoMapper.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlantsAutoMapper.Services
 {
@@ -15,6 +17,7 @@ namespace PlantsAutoMapper.Services
             _mapper = mapper;
             _context = context;
         }
+
         public ActionResult<List<PlantDto>> AddPlant(PlantDto newPlantDto)
         {
             var newPlant = _mapper.Map<Plant>(newPlantDto);
@@ -23,7 +26,7 @@ namespace PlantsAutoMapper.Services
 
             var plants = _context.Plants.ToList();
             var plantDtos = _mapper.Map<List<PlantDto>>(plants);
-            return plantDtos;
+            return new OkObjectResult(plantDtos);
         }
 
         public ActionResult DeletePlant(int id)
@@ -31,19 +34,18 @@ namespace PlantsAutoMapper.Services
             var plant = _context.Plants.FirstOrDefault(p => p.Id == id);
             if (plant == null)
             {
-                throw new Exception("Plant not found!");
+                return new NotFoundResult();
             }
             _context.Plants.Remove(plant);
             _context.SaveChanges();
-            throw new Exception("");
+            return new NoContentResult();
         }
 
-        public ActionResult<List<PlantDto>> GetAllPlans()
+        public ActionResult<List<PlantDto>> GetAllPlants()
         {
             var plants = _context.Plants.ToList();
             var plantDtos = _mapper.Map<List<PlantDto>>(plants);
-
-            return plantDtos;
+            return new OkObjectResult(plantDtos);
         }
 
         public ActionResult<PlantDto> GetPlantById(int id)
@@ -51,10 +53,10 @@ namespace PlantsAutoMapper.Services
             var plant = _context.Plants.FirstOrDefault(p => p.Id == id);
             if (plant == null)
             {
-                throw new Exception("Plant not found!");
+                return new NotFoundResult();
             }
             var plantDto = _mapper.Map<PlantDto>(plant);
-            return plantDto;
+            return new OkObjectResult(plantDto);
         }
 
         public ActionResult UpdatePlant(int id, PlantDto plantDto)
@@ -62,11 +64,11 @@ namespace PlantsAutoMapper.Services
             var plant = _context.Plants.FirstOrDefault(p => p.Id == id);
             if (plant == null)
             {
-                throw new Exception("Plant not found!");
+                return new NotFoundResult();
             }
             _mapper.Map(plantDto, plant);
             _context.SaveChanges();
-            throw new Exception("");
+            return new NoContentResult();
         }
     }
 }

@@ -15,7 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<PlantService, PlantService>();
+builder.Services.AddScoped<IPlantService, PlantService>();
 
 var app = builder.Build();
 

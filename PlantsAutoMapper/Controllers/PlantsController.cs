@@ -11,14 +11,10 @@ namespace PlantsAutoMapper.Controllers
     [ApiController]
     public class PlantsController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly DataContext _context;
         private readonly IPlantService _service;
 
-        public PlantsController(IMapper mapper, DataContext context, IPlantService service)
+        public PlantsController(IPlantService service)
         {
-            _mapper = mapper;
-            _context = context;
             _service = service;
         }
 
